@@ -5,6 +5,23 @@ $(function () {
     $('#heroImg').addClass('animate');
   });
 
+  $('#packagesWrap').on('click', 'input', function (e) {
+    e.preventDefault();
+
+    const savedVal = $(this).val();
+    
+    $(this).select();
+
+    /* Copy the text inside the text field */
+    navigator.clipboard.writeText($(this).val());
+    $(this).val('Copied!');
+    $(this).css('color', 'green');
+    setTimeout(() => {
+      $(this).val(savedVal);
+      $(this).css('color', '#333');
+    }, 1500);
+  });
+
   $('#start').on('click', function (event) {
     $('#heroImg').animate(
       {

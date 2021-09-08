@@ -40,6 +40,8 @@ header section {
   max-width: 920px;
   margin: 0 auto;
   height: 80px;
+  z-index: 10;
+  position: relative;
 }
 
 header section a:hover {
@@ -256,7 +258,7 @@ a #startContent iframe {
 
 section#docs {
   max-width: 920px;
-  margin: 16px auto;
+  margin: 0px auto;
 }
 
 @media only screen and (max-width: 768px) {
@@ -266,8 +268,8 @@ section#docs {
   }
 }
 
-#docs h3 {
-  margin-top: 16px;
+#docs h3:not(:first-child) {
+  margin-top: 32px;
 }
 
 #docs p {
@@ -292,4 +294,22 @@ section#docs {
 pre {
   max-width: 100%;
   overflow-x: auto;
+}
+
+#packagesWrap {
+  max-width: 920px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+#packagesWrap input {
+  padding: 5px 0px;
+  margin: 16px;
+  background:url(images/clipboard_icon.png) no-repeat right top;
+  background-size: 23px;
+  cursor: pointer;
+  text-indent: 5px;
+  font-weight: bold;
 }
