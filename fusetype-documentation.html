@@ -339,18 +339,15 @@
       crossorigin="anonymous"
     ></script>
     <script type="text/javascript" src="./main.js"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1VBPTRDTLS"></script>
     <script>
-      window.ga = function () {
-        ga.q.push(arguments);
-      };
-      ga.q = [];
-      ga.l = +new Date();
-      ga('create', 'UA-XXXXX-Y', 'auto');
-      ga('set', 'anonymizeIp', true);
-      ga('set', 'transport', 'beacon');
-      ga('send', 'pageview');
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-1VBPTRDTLS');
     </script>
-    <script src="https://www.google-analytics.com/analytics.js" async></script>
     <footer>
       <p>&copy; 2021 Barnden inc</p>
     </footer>
