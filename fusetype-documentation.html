@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en-gb">
+  <head>
+    <meta charset="utf-8" />
+    <title>FuseType - Documentation</title>
+    <meta
+      name="description"
+      content="Documentation for FuseType, a super lightweight, fully testable state management system"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta property="og:title" content="FuseType - Documentation for FuseType, a
+    super lightweight, fully testable state management system"" />
+    <meta property="og:type" content="" />
+    <meta property="og:url" content="" />
+    <meta property="og:image" content="" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Oswald:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="content">
+      <header>
+        <section>
+          <a
+            href="https://github.com/esharmony/fusetype"
+            role="navigation"
+            title="github repository"
+            target="_blank"
+            id="gitLogo"
+            ><img src="./images/git.png"
+          /></a>
+          <a href="#" class="selected" id="docs"> Docs</a>
+          <iframe
+            src="./headerIcon.html"
+            scrolling="no"
+            width="50"
+            height="50"
+          ></iframe>
+          <h1 title="FuseType"><a href="index.html">FuseType</a></h1>
+        </section>
+      </header>
+      <section id="heroLogo" style="height: auto; padding-bottom: 20px;">
+        <section id="contentWrapper">
+          <div id="startContent">
+           <iframe src="https://www.loom.com/embed/b047ec335bda4b80b38b1c3182a20425" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+          </div>
+        </section>
+      </section>
+      <section id="docs">
+        <h3>What is FuseType?</h3>
+        <p>
+          FuseType is a simple yet powerful state management system, that at its
+          core is the observer / pub sub pattern. <br />
+          Its function is to help you share state with seperate components
+          across your application.
+        </p>
+        <h3>Why should I use FuseType?</h3>
+        <p>
+          FuseType is super lightweight and extremly easy to configure.
+          <br />There's no nesting of components or funky obfuscated elements in its setup.
+        </p>
+        <p>
+          At its heart, it is the tried and tested observer pattern, with a few
+          methods thrown in to help make using it super simple.
+        </p>
+        <h3>What is a FuseType?</h3>
+        <p>This is a fuseType.</p>
+        <div class="docs">
+          <pre>
+  import { CreateFuseType } from "fusetype";
+
+  export interface CounterState {
+    count:number;
+  }
+              
+  export interface CounterFuseType {
+    state:CounterState;
+    increment:() => void;
+    decrement:() => void;
+  }
+  
+  const Counter: CounterFuseType = {
+    state: {
+      count:0,
+    },
+    increment: () => Counter.state.count++,
+    decrement: () => Counter.state.count--,
+  }
+
+  export default CreateFuseType&lt;CounterFuseType, CounterState&gt;(Counter);
+          </pre>
+      </div>
+      <p>
+        A FuseType is a simple fusion of the state required, and the methods that will mutate that state.
+      </p>
+      <p> It is made up of three parts:</p>
+      <ul>
+        <li>The interface for the state</li>
+        <li>The interface for the FuseType</li>
+        <li>The implemetation of the FuseType (state and methods)</li>
+      </ul>  
+      <p> The state should be implemented as your default state, and the methods as the operations<br /> on the state you wish to perform.</p>
+      <h3>Methods</h3>
+      <p>All methods are to be of type void. This is because the result of your mutation will be passed to all components that are registered for them - (example futher down)</p>
+      <p> You can pass any parameters to your methods:</p>
+      <div class="docs">
+        <pre>
+  increment: (amount: number) => Counter.state.count = amount;
+        </pre>
+      </div>
+      <p>Methods can be asynchronous: </p>
+      <div class="docs">
+        <pre>
+  addStarWarsFilmsToWatch: async () =>  {
+    try {
+      const response = await fetch('https://swapi.dev/api/films');
+      const films = await response.json();
+      const items: ListItem[] = [];
+      films.results.forEach((film:any) => {
+          items.push(transformFilmToListItem(film))
+      });;
+      todoList.setItems(items);
+    }
+    catch(err){
+      todoList.error();
+      todoList.setErrorMessage(err.message);
+    }
+    finally {
+      todoList.setIsLoading(false);
+    }
+
+    // taken from the Todo list example (coming soon)
+  }
+      </pre>
+    </div>
+    <p>To use the methods in any view, you just need to import your FuseType and execute the method as so where required.</p>
+    <p>Below is a React example:</p>
+    <div class="docs">
+      <pre>
+  import Counter from '../FuseTypes/Counter';
+
+  const CounterButtons = () => {
+    return &lt;&gt;
+    &lt;div id="btn"&gt;
+    &lt;button onClick={() => Counter.increment()}>Increment&lt;button&gt;
+    &lt;button onClick={() => Counter.decrement()}>Decrement&lt;/button&gt;
+    &lt;button onClick={() => Counter.clearState()}>Reset&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;/&gt;
+  }
+
+  export default CounterButtons;
+      </pre>
+    </div>
+    <p>Be aware, at this point you have to execute your methods in a certain way: </p>
+
+    <div class="docs">
+      <pre>
+  
+    // not possible
+
+    &lt;button onClick={Counter.increment}>Increment&lt;button&gt;
+
+    // must be like this
+
+    &lt;button onClick={() => Counter.decrement()}>Decrement&lt;/button&gt;
+      </pre>
+    </div>
+    <h3>Additional Methods</h3>
+    <p>Each FuseType comes with these additional library methods:</p>
+    <ul>
+      <li><strong>register</strong>: register a function for state updates</li>
+      <li><strong>remove:</strong> remove the registered function for state updates</li>
+      <li><strong>getLatestState:</strong> requests the current state (passed to the registered function, not returned)</li>
+      <li><strong>clearState:</strong> resets the state to the default setting</li>
+    </ul>
+    <p>More information on these methods is provided in the section on state coming up.</p>
+    <h3>Private Methods</h3>
+    <p>All methods on your FuseType will be available on the imported object, but you can also write private functions in your FuseType file that can transform your data etc that will not be exposed.</p>  
+    <p>Below is an example of this technique.</p>
+    <div class="docs">
+      <pre>
+  const stopDecrementAtZero = (count: number) => {
+    if(count === 0) return;
+    else Counter.state.count--;
+  }
+  
+  const Counter: CounterFuseType = {
+    state: {
+      count:0,
+    },
+    increment: () => Counter.state.count++,
+    decrement: () => stopDecrementAtZero(Counter.state.count),
+  }
+      </pre>
+    </div>
+    <p>The stopDecrementAtZero function will not be found on the exported FuseType. Only those methods that are part of the actual FuseType itself will be exposed.</p>
+
+    <h3>State</h3>
+    <p>To access the updates to your FuseType state, you import your FuseType, then register a function with your view once your view is mounted. <br> </p>
+    <p>Below is a react example.</p>
+    <div class="docs">
+      <pre>
+  import { useEffect, useState } from "react";
+  import Counter, { CounterState } from '../FuseTypes/Counter';
+
+
+  const ViewCounter = () => {
+
+    // ATTENTION: notice the Counter.state property, this is your default state
+
+    const [counter, setCounter] = useState&lt;CounterState&gt;(Counter.state);
+
+    const updateCounter = (state:CounterState) => {
+        setCounter(state);
+    } 
+
+    useEffect(() => {
+      Counter.register(updateCounter, ViewCounter.name);
+    },[]);
+
+    return &lt;h1&gt;{counter.count}&lt;/h1&gt;
+  }
+
+  export default ViewCounter;
+      </pre>
+    </div>
+    <p><strong>The register method</strong></p>
+    <div class="docs">
+      <pre>
+  useEffect(() => {
+    Counter.register(updateCounter, ViewCounter.name);
+  },[]);
+      </pre>
+    </div>
+    <p>The register method takes two parameters: </p>
+    <ul>
+      <li>The function which you are registering to receive your state updates</li>
+      <li>A unique string that will be used in removal of the function at runtime - As you will only need to register once per component / view I generally use the name of the component registering, but you can use any unique string.</li>
+    </ul>
+    <p><strong>The update function</strong></p>
+    <div class="docs">
+      <pre>
+  const updateCounter = (state:CounterState) => {
+    setCounter(state);
+  } 
+      </pre>
+    </div>
+    <p>
+      The registered function can be named anyway you prefer (here being updateCounter) but it must contain the state parameter with the type of your state.<br />
+      Now when any state change occurs this function (and any other functions registered for this FuseType in any other views) will be executed.
+    </p>
+    <p>
+      In the react example you see I then take that update and pass it to a standand useState React hook which then updates the component.
+    </p>
+    <p><strong>Optional previous state</strong></p>
+    <div class="docs">
+      <pre>
+  const updateCounter = (state:CounterState, prevState:CounterState) => {
+    console.log(prevState.count); // 0
+    console.log(state.count); // 1
+    setCounter(state);
+  } 
+      </pre>
+    </div>
+    <p>You can get access to the previous state by adding the prevState parameter with the type of your state. <br />You can then use this information to decide whether or not to update / rerender your component.</p>
+
+    <p><strong>The remove method</strong></p>
+    <div class="docs">
+      <pre>
+    useEffect(() => {
+      Counter.register(updateCounter, ViewCounter.name);
+      return () => Counter.remove(ViewCounter.name);
+    },[]);
+      </pre>
+    </div>
+    <p>On calling the remove function passing the unique string you registered with, your update function will no longer receive updates. This can be useful if wish to stop rendering your view for any reason, such as the user has hidden it from view.</p>
+    <p>
+      If it has been removed, you can then execute the register method again to re-register. This can be done as many times as you wish.
+    </p>
+    <p><strong>The getLatestState Method</strong></p>
+    <div class="docs">
+      <pre>
+    Counter.getLatestState();
+      </pre>
+    </div>
+    <p>If you are re-registering, you may find you need to call the getLatestState method to insure your view is up to date with all the latest changes.</p>
+    <p>The value will not be returned, the method will trigger a call to your update function.</p>
+    <h3>Testing</h3>
+    <div class="docs">
+      <pre>
+  import { act } from 'react-dom/test-utils';
+  import Counter from '../Counter';
+  
+  describe('Counter tests', () => {
+    beforeEach(() => {
+      // clear state is a method that comes on all FuseTypes
+      act(() => Counter.clearState())
+    })
+    describe('When incrementing the counter twice', () => {
+      it('should have set the state count to 2', () => {
+        act(() => Counter.increment());
+        act(() => Counter.increment());
+        expect(Counter.state.count).toEqual(2);
+      });
+    });
+    describe('When decrementing the counter once after two increments', () => {
+      it('should have set the state count to 1', () => {
+        act(() => Counter.increment());
+        act(() => Counter.increment());
+        act(() => Counter.decrement());
+        expect(Counter.state.count).toEqual(1);
+      });
+    });
+  });
+      </pre>
+    </div>
+    <p>Testing is extremly simple, just three things to note.</p>
+    <ul>
+      <li>Before each test we want to reset the state to default to give a clean start</li>
+      <li>We just execute our methods, I used act but I do not think that is a requirement</li>
+      <li>Each FuseType has a state property, this is what we check against after the methods have been executed</li>
+    </ul>
+    <h3>Async Testing</h3>
+    <p>coming soon..</p>
+      </section>
+    </div>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <script type="text/javascript" src="./main.js"></script>
+    <script>
+      window.ga = function () {
+        ga.q.push(arguments);
+      };
+      ga.q = [];
+      ga.l = +new Date();
+      ga('create', 'UA-XXXXX-Y', 'auto');
+      ga('set', 'anonymizeIp', true);
+      ga('set', 'transport', 'beacon');
+      ga('send', 'pageview');
+    </script>
+    <script src="https://www.google-analytics.com/analytics.js" async></script>
+    <footer>
+      <p>&copy; 2021 Barnden inc</p>
+    </footer>
+  </body>
+</html>

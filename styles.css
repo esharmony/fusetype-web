@@ -1,0 +1,294 @@
+* {
+  padding: 0;
+  margin: 0;
+  color: #333;
+}
+
+body, html {
+  overflow-x: hidden;
+  height: 100%;
+}
+body {
+  display: flex;
+  flex-direction: column;
+}
+.content {
+  flex: 1 0 auto;
+}
+
+h1,
+h3,
+h4 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 22px;
+}
+
+p, a ,ul {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+ul  {
+  padding: 16px;
+  font-size: 18px;
+}
+
+iframe {
+  border: none;
+}
+
+header section {
+  max-width: 920px;
+  margin: 0 auto;
+  height: 80px;
+}
+
+header section a:hover {
+  text-decoration: underline;
+}
+
+header section h1 a, header section a {
+  text-decoration: none;
+  font-family: 'Oswald', sans-serif;
+}
+
+header section a#docs {
+  margin:22px 18px 0 0px;
+  font-size: 22px;
+}
+
+header section h1 a {
+  float: left;
+  margin: 22px 0 0 4px;
+  
+}
+
+header section iframe {
+  margin: 16px 0 0 0px;
+  float: left;
+}
+
+header section a {
+  float: right;
+  margin: 19px 0px 0 0;
+}
+
+@media only screen and (max-width: 768px) {
+  header section iframe {
+    margin: 16px 0 0 16px;
+  }
+  header section a {
+    margin: 19px 16px 0 0;
+  }
+}
+
+header section img {
+  height: 38px;
+}
+
+section#heroLogo {
+  height: 300px;
+  background-color: #f1f1f1;
+  position: relative;
+  text-align: center;
+}
+
+@media only screen and (max-width: 768px) {
+  section#heroLogo {
+    height: 270px;
+  }
+}
+
+section#heroLogo h3 {
+  font-size: 50px;
+  z-index: 2;
+  position: relative;
+  margin-bottom: 5px;
+  padding-top: 60px;
+}
+
+@media only screen and (max-width: 768px) {
+  section#heroLogo h3 {
+    padding-top: 40px;
+  }
+}
+
+a#start {
+  border: 1px solid #333;
+  color: #333;
+  background-color: white;
+  width: 150px;
+  padding: 5px 10px;
+  z-index: 2;
+  margin: 0px auto;
+  position: relative;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+section#heroLogo h2 {
+  z-index: 2;
+  font-size: 30px;
+  position: relative;
+  margin-bottom: 20px;
+  font-weight: lighter;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+section#heroLogo img {
+  position: absolute;
+  left: 50%;
+  margin-left: -200px;
+  top: -50px;
+  width: 400px;
+  height: 400px;
+  animation: rotation 120s infinite linear;
+  opacity: 0.4;
+}
+
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  section#heroLogo img {
+    margin-left: -162.5px;
+    top: -25px;
+    width: 325px;
+    height: 325px;
+  }
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+section#techLogos {
+  display: flex;
+  justify-content: center;
+}
+
+section#techLogos img {
+  width: 40px;
+  margin: 75px 0 0 25px;
+}
+
+@media only screen and (max-width: 768px) {
+  section#techLogos img {
+    margin: 55px 0 0 25px;
+  }
+}
+
+section#infoBlocks {
+  display: flex;
+  max-width: 920px;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  margin: 50px auto;
+}
+
+section#infoBlocks article {
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);
+  padding-bottom: 25px;
+  min-width: 250px;
+  flex: 250px;
+  margin: 0 10px 20px 10px;
+}
+
+.infoHeader {
+  display: flex;
+  justify-content: center;
+  background-color: #f1f1f1;
+  padding: 10px 0;
+}
+
+.headingFont {
+  font-family: 'Oswald', sans-serif;
+}
+
+section#infoBlocks p {
+  font-size: 18px;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 16px 16px 0 16px;
+  color: #333;
+}
+
+footer {
+  border-top: 2px solid #f1f1f1;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+footer p {
+  color: #ccc;
+  font-size: 16px;
+  margin:20px 0;
+}
+
+#contentWrapper {
+  max-width: 920px;
+  position: relative;
+  margin:0 auto;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+a #startContent {
+  display: none;
+  height:0;
+}
+
+a #startContent iframe {
+  margin-top:0px
+}
+
+#startContent {
+  display: block;
+  height: 270px;
+  padding-top:10px
+}
+#startContent iframe {
+  margin-top:10px
+}
+
+section#docs {
+  max-width: 920px;
+  margin: 16px auto;
+}
+
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  section#docs {
+    padding: 0 16px;
+  }
+}
+
+#docs h3 {
+  margin-top: 16px;
+}
+
+#docs p {
+  font-size: 18px;
+  margin-top: 16px;
+}
+
+
+
+.selected {
+  text-decoration: underline;
+}
+
+
+.docs {
+  font-size: 16px;
+  margin-top:16px;
+  padding-top: 10px;
+  background-color: #f8f8f8;
+}
+
+pre {
+  max-width: 100%;
+  overflow-x: auto;
+}
